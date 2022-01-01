@@ -54,20 +54,25 @@ function App() {
   // ];
 
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function getMovies() {
-      let res = await fetch("https://swapi.dev/api/films/");
-      let data = await res.json();
-      setMovies(data.results);
-    }
-    getMovies();
-  })
+    setTimeout(() => {
+      async function getMovies() {
+        let res = await fetch("https://swapi.dev/api/films/");
+        let data = await res.json();
+        setMovies(data.results);
+        setLoading(false)
+      }
+      getMovies();
+    }, 3000)
+  }, []);
 
   
   return (
     <div className="App">
       <h1>Star wars test</h1>
+      {loading && (<h2>Loading...</h2>)}
       {movies.map((film) => (
         <Movies key={film.id} film={film} />
       ))}

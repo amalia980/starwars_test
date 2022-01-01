@@ -1,7 +1,7 @@
 import React from "react";
 //import ReactDOM from "react";
 
-const Modal = ({open, filmCharacters, onClose}) => {
+const Modal = ({open, filmCharacters, onClose, film}) => {
 
     if(!open) return null
 
@@ -9,6 +9,7 @@ const Modal = ({open, filmCharacters, onClose}) => {
         return (
         <>
       <div>
+      <h3>{film}</h3>
         {filmCharacters.map((char) => (
             <div>
               <p>{char.name}</p>

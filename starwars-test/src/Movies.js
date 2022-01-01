@@ -33,7 +33,7 @@ const Movies = (props) => {
       <button onClick={() => setIsOpen(true)}>
         {props.film.title} | {props.film.release_date}
       </button>
-      <Modal filmCharacters={characters} open={isOpen} onClose={() => setIsOpen(false)} />
+      <Modal film={props.film.title} filmCharacters={characters} open={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 }
