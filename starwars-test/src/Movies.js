@@ -7,6 +7,8 @@ const Movies = (props) => {
 
   const [characters, setCharacters] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
 
   const fetchRequests = props.film.characters.map((url) =>
     fetch(url).then((res) => res.json())
@@ -19,11 +21,16 @@ const Movies = (props) => {
   ]*/
 
   useEffect(() => {
-    Promise.all(fetchRequests).then((res) => {
-      //console.log("res from promise all ", res);
-      setCharacters(res);
-    });
-  }, []);
+    setTimeout(() => {
+      function getCharacters() {
+        Promise.all(fetchRequests).then((res) => {
+          setCharacters(res);
+          setLoading(false);
+        });
+      }
+    getCharacters();
+  }, 3000)
+  });
 
 
   //console.log("characters: ", characters);
@@ -33,7 +40,12 @@ const Movies = (props) => {
       <button onClick={() => setIsOpen(true)}>
         {props.film.title} | {props.film.release_date}
       </button>
-      <Modal film={props.film.title} filmCharacters={characters} open={isOpen} onClose={() => setIsOpen(false)} />
+      <Modal 
+      film={props.film.title} 
+      filmCharacters={characters} 
+      open={isOpen} 
+      onClose={() => setIsOpen(false)} 
+      loading={loading} />
     </div>
   );
 }
